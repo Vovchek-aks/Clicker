@@ -1,4 +1,5 @@
-import mouse
+import mouse as ms
+import keyboard as kb
 import time
 
 
@@ -7,9 +8,9 @@ def stop():
     running = False
 
 
-mouse.on_right_click(stop)
+kb.add_hotkey("esc", stop)
 
 running = True
 while running:
     time.sleep(1)
-    mouse.click('left')
+    ms.click('left')
