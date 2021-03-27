@@ -5,6 +5,8 @@ np = 29
 
 f = 0
 
+wait(4)
+
 for i in range(np):
 
     # print("new person")
