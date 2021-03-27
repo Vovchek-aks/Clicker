@@ -1,143 +1,47 @@
-import mouse as ms
-import keyboard as kb
-import pyautogui as ag
-import time
-import os
-from settings import *
+from clicker import *
 
 
-def stop():
-    global running
-    print("end_work")
-    running = False
-    if os.path.isfile(scr_name):
-        os.remove(scr_name)
-    exit(0)
-
-
-def kpp():
-    if not running or kb.is_pressed('esc'):
-        stop()
-
-
-def get_px(pos):
-    screenshot()
-    return SCREEN_PX[pos]
-
-
-def screenshot():
-    global SCREEN, SCREEN_PX
-    SCREEN = ag.screenshot(scr_name)
-    SCREEN_PX = SCREEN.load()
-
-
-def click(b, pos=ms.get_position()):
-    ms.move(*pos)
-    ms.click(b)
-
-
-kb.add_hotkey("esc", stop)
-SCREEN = ag.screenshot(scr_name)
-SCREEN_PX = SCREEN.load()
-
-running = True
-
-# screenshot()
-
-
-np = 25
-nc = 12
-
-time.sleep(4)
+np = 29
 
 f = 0
-for j in range(nc):
-    for i in range(np):
 
-        # print("new person")
+for i in range(np):
 
-        mmx, mmy = ms.get_position()
+    # print("new person")
 
-        click('right')
-        time.sleep(1)
-        kpp()
-        click('left', (mmx + 100, mmy + 10))
-        time.sleep(10)
-        kpp()
+    # new page
 
-        click('left', (300, 10))
-        time.sleep(1)
-        kpp()
-        click('left', (1000, 180))
-        time.sleep(5)
-        kpp()
+    pos = mmx, mmy = ms.get_position()
 
-        click('left', (431, 10))
-        time.sleep(1)
-        kpp()
-        ms.move(mmx, mmy)
-        kpp()
+    click(RIGHT, pos)
+    wait(1)
+    click(LEFT, (ms.get_position()[0] + 100, ms.get_position()[1] + 10))
+    wait(10) # time for load page
 
-        ms.wheel(-1)
-        time.sleep(1)
-        kpp()
-        ms.move(0, -70, absolute=False)
-        kpp()
+    # add friend
+    click(LEFT, (300, 10))
+    wait(1)
+    click(LEFT, (1000, 250))
+    wait(5)
 
-        if ms.get_position()[1] < 100:
-            ms.move(0, 29 * 10 - 4 * f, absolute=False)
-            f = 1 - f
+    # go back
+    click(LEFT, (431, 10))
+    wait(1)
+    ms.move(pos)
 
-        print(i + 1 + j * np)
-        time.sleep(1)
-        kpp()
+    # new person
+    ms.wheel(-1)
+    wait(1)
+    ms.move(ms.get_position()[0], ms.get_position()[1] - 70)
 
-    print("reload")
-    mmx, mmy = ms.get_position()
-    kpp()
+    if ms.get_position()[1] < 100:
+        ms.move(ms.get_position()[0], ms.get_position()[1] + 29 * 10 - 4 * f)
+        f = 1 - f
 
-    click('left', (460, 1070))
-    time.sleep(1)
-    kpp()
-    click('left', (1500, 400))
-    time.sleep(1)
-    kpp()
-    click('left', (1500, 600))
-    # time.sleep(1)
-    # lclick(1500, 630)
-    time.sleep(5)
-    kpp()
-
-    # re login
-    click('right', (mmx, mmy))
-    time.sleep(1)
-    kpp()
-    ms.move(100, 10, absolute=False)
-    click('left')
-    time.sleep(10)  # time for load page
-    kpp()
-
-    click('left', (300, 10))
-    time.sleep(1)
-    kpp()
-    click('left', (1620, 100))
-    time.sleep(5)
-    kpp()
-    click('left', (1000, 350))
-    time.sleep(1)
-    kpp()
-    click('left', (1000, 450))
-    time.sleep(2)
-    kpp()
-
-    click('left', (431, 10))
-    time.sleep(1)
-    kpp()
-    ms.move(mmx, mmy)
-    time.sleep(1)
-    kpp()
-
-    # print("reload_end")
+    print(i + 1)
+    wait(1)
 
 
-stop()
+
+
+
