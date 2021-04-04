@@ -1,49 +1,71 @@
 from clicker import *
 
+# ========settings==========
 
-np = 29
+np = 29  # on 1 ip
 
-f = 0
+# ==========================
 
-wait(4)
+wait(10)
 
-for i in range(np):
+# start
 
-    # print("new person")
+f = 0  # dont touch
 
-    # new page
+while True:
+    for i in range(np):
+        # print("new person")
 
-    pos = mmx, mmy = ms.get_position()
+        # new page
+        pos = mmx, mmy = ms.get_position()
 
-    click(RIGHT, pos)
-    wait(1)
-    click(LEFT, (ms.get_position()[0] + 100, ms.get_position()[1] + 10))
-    wait(10) # time for load page
+        click(RIGHT, ms.get_position())
+        wait(2)
+        click(LEFT, (ms.get_position()[0] + 100, ms.get_position()[1] + 10))
+        wait(10)  # time for load page
 
-    # add friend
-    click(LEFT, (300, 10))
-    wait(1)
-    click(LEFT, (1000, 250))
-    wait(5)
+        # add friend
+        click(LEFT, (300, 10))
+        wait(2)
+        click(LEFT, (1000, 250))
+        wait(10)
 
-    # go back
-    click(LEFT, (431, 10))
-    wait(1)
-    ms.move(pos)
+        # go back
+        click(LEFT, (431, 10))
+        wait(2)
+        ms.move(mmx, mmy, absolute=True)
 
-    # new person
-    ms.wheel(-1)
-    wait(1)
-    ms.move(ms.get_position()[0], ms.get_position()[1] - 70)
+        # new person
+        ms.wheel(-1)
+        wait(2)
 
-    if ms.get_position()[1] < 100:
-        ms.move(ms.get_position()[0], ms.get_position()[1] + 29 * 10 - 4 * f)
-        f = 1 - f
+        # end?
+        Screen.shot()
+        ppos = (1850, 950)
+        kpp()
+        clr = Screen.SCREEN_PX[pos[0], pos[1]]
+        # print(clr)
+        if clr == (246, 248, 253):
+            import sender
+            wait(1)
+            exit(0)
 
-    print(i + 1)
-    wait(1)
+        ms.move(mmx, mmy, absolute=True)
 
+        wait(2)
+        ms.move(ms.get_position()[0], ms.get_position()[1] - 70, absolute=True)
 
+        if ms.get_position()[1] < 100:
+            ms.move(ms.get_position()[0], ms.get_position()[1] + 29 * 10 - 4 * f)
+            f = 1 - f
 
+        print(i + 1)
+        wait(1)
 
+    dmx, dmy = ms.get_position()
+    print("ждём час")
+    wait(3600)
+    print("выхожу на работу")
+    ms.move(dmx, dmy, absolute=True)
 
+    # stop()

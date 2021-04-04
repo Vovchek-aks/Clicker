@@ -3,7 +3,6 @@ import keyboard as kb
 import pyautogui as ag
 import time
 import os
-from settings import *
 
 
 LEFT = 'left'
@@ -11,6 +10,16 @@ RIGHT = 'right'
 
 scr_name = 'screenshot.png'
 running = True
+
+
+class Screen:
+    SCREEN = ag.screenshot(scr_name)
+    SCREEN_PX = SCREEN.load()
+
+    @classmethod
+    def shot(cls):
+        cls.SCREEN = ag.screenshot(scr_name)
+        cls.SCREEN_PX = cls.SCREEN.load()
 
 
 def stop():
@@ -28,14 +37,8 @@ def kpp():
 
 
 def get_px(pos):
-    screenshot()
-    return SCREEN_PX[pos]
-
-
-def screenshot():
-    global SCREEN, SCREEN_PX
-    SCREEN = ag.screenshot(scr_name)
-    SCREEN_PX = SCREEN.load()
+    Screen.shot()
+    return Screen.SCREEN_PX[pos]
 
 
 def click(b, pos=ms.get_position()):
@@ -52,8 +55,6 @@ def wait(sec):
 
 
 kb.add_hotkey("esc", stop)
-SCREEN = ag.screenshot(scr_name)
-SCREEN_PX = SCREEN.load()
 
 
 # screenshot()
