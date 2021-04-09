@@ -43,10 +43,10 @@ while True:
         Screen.shot()
         ppos = (1850, 950)
         kpp()
-        clr = Screen.SCREEN_PX[pos[0], pos[1]]
         # print(clr)
-        if clr == (246, 248, 253):
+        if get_px(ppos) == (246, 248, 253):
             import sender
+
             wait(1)
             exit(0)
 
