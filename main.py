@@ -13,7 +13,10 @@ wait(10)
 f = 0  # dont touch
 
 while True:
-    for i in range(np):
+    i = 0
+    _time = time.time
+    while i < np:
+        fl = True
         # print("new person")
 
         # new page
@@ -27,8 +30,11 @@ while True:
         # add friend
         click(LEFT, (300, 10))
         wait(2)
-        click(LEFT, (1000, 250))
-        wait(10)
+        if get_px((1144, 256)) == (255, 255, 255):
+            fl = False
+        else:
+            click(LEFT, (1000, 250))
+            wait(10)
 
         # go back
         click(LEFT, (431, 10))
@@ -40,7 +46,10 @@ while True:
         wait(2)
 
         # end?
-        Screen.shot()
+        try:
+            Screen.shot()
+        except Exception as x:
+            input(x)
         ppos = (1850, 950)
         kpp()
         # print(clr)
@@ -59,13 +68,21 @@ while True:
             ms.move(ms.get_position()[0], ms.get_position()[1] + 29 * 10 - 4 * f)
             f = 1 - f
 
-        print(i + 1)
         wait(1)
 
+        if fl:
+            print(i + 1)
+            i += 1
+        print(f'---{i}')
+
     dmx, dmy = ms.get_position()
-    print("ждём час")
-    wait(3600)
+    if time.time - _time < 3600:
+        print(f"ждём {3600 - time.time + _time}sec")
+        # click(LEFT, (400, 1060))
+        wait(3600 - time.time + _time)
     print("выхожу на работу")
     ms.move(dmx, dmy, absolute=True)
 
     # stop()
+
+input('end')
