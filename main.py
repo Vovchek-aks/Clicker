@@ -14,7 +14,7 @@ f = 0  # dont touch
 
 while True:
     i = 0
-    _time = time.time
+    _time = time.time()
     while i < np:
         fl = True
         # print("new person")
@@ -76,10 +76,10 @@ while True:
         print(f'---{i}')
 
     dmx, dmy = ms.get_position()
-    if time.time - _time < 3600:
-        print(f"ждём {3600 - time.time + _time}sec")
+    if time.time() - _time < 3600:
+        print(f"ждём {3600 - time.time() + _time}sec")
         # click(LEFT, (400, 1060))
-        wait(3600 - time.time + _time)
+        wait(3600 - time.time() + _time)
     print("выхожу на работу")
     ms.move(dmx, dmy, absolute=True)
 
