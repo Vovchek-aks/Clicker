@@ -60,4 +60,7 @@ kb.add_hotkey("esc", stop)
 # screenshot()
 
 if __name__ == '__main__':
-    stop()
+    while running:
+        pos = ms.get_position()
+        c = get_px(pos)
+        print(pos, c)

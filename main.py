@@ -1,8 +1,10 @@
 from clicker import *
 
-# ========settings==========
+# ======= settings =========
 
 np = 29  # on 1 ip
+TFS = 3600  # sec for sleep
+GOOGLE = False
 
 # ==========================
 
@@ -19,6 +21,11 @@ while True:
         fl = True
         # print("new person")
 
+        while get_px(ms.get_position()) == (246, 248, 253):
+            ms.move(0, 1, absolute=False)
+            time.sleep(0.5)
+            kpp()
+
         # new page
         pos = mmx, mmy = ms.get_position()
 
@@ -30,14 +37,14 @@ while True:
         # add friend
         click(LEFT, (300, 10))
         wait(2)
-        if get_px((1144, 256)) == (255, 255, 255):
+        if get_px((1144, 284) if GOOGLE else (1147, 254)) == (255, 255, 255):
             fl = False
         else:
-            click(LEFT, (1000, 250))
+            click(LEFT, (1000, 284) if GOOGLE else (1013, 256))
             wait(10)
 
         # go back
-        click(LEFT, (431, 10))
+        click(LEFT, (472, 16) if GOOGLE else (432, 18))
         wait(2)
         ms.move(mmx, mmy, absolute=True)
 
@@ -54,7 +61,7 @@ while True:
         kpp()
         # print(clr)
         if get_px(ppos) == (246, 248, 253):
-            import sender
+            # import sender
 
             wait(1)
             exit(0)
@@ -73,13 +80,16 @@ while True:
         if fl:
             print(i + 1)
             i += 1
-        print(f'---{i}')
+        else:
+            print('Пользователь уже был в друзьях')
 
     dmx, dmy = ms.get_position()
-    if time.time() - _time < 3600:
-        print(f"ждём {3600 - time.time() + _time}sec")
+    tt = time.time() - _time
+    tt = round(tt)
+    if tt < TFS:
+        print(f"ждём {TFS - tt} sec")
         # click(LEFT, (400, 1060))
-        wait(3600 - time.time() + _time)
+        wait(TFS - tt)
     print("выхожу на работу")
     ms.move(dmx, dmy, absolute=True)
 
